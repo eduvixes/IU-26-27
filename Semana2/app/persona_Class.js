@@ -1,5 +1,9 @@
 class persona extends Validations{
 
+	/**
+	 * ejecuta el constructor de la clase de donde hereda
+	 * crea como atributo propio la clase de manejo visual del dom para poder utilizar los métodos de modificación de estructura definidos
+	 */
 	constructor(){
 		super();
 		this.dom = new dom();
@@ -12,10 +16,7 @@ class persona extends Validations{
 	/**
 		
 		@param 
-		@return
-			{string} Error code of field value (fieldname_validationfunction_KO) 
-			or
-			{bool} true due the field value is correct
+		@return {string/bool} Error code of field value (fieldname_validationfunction_KO) or true due the field value is correct
 
 	*/
 
