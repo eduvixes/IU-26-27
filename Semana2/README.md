@@ -44,7 +44,7 @@ Si se produce un error se mostrará un texto con el error y se pondrá el borde 
 			<span id="span_error_dni"><a id="error_dni"></a></span>
 			<br>
 
-html ```
+```
 
 Existe un evento onsubmit() asociado al formulario que se dispara cuando el usuario realiza el submit y que en función de su respuesta (true/false) enviará la información al action o bien la paralizará.
 
@@ -53,7 +53,7 @@ Existe un evento onsubmit() asociado al formulario que se dispara cuando el usua
 <form action="http://193.147.87.202/procesaform.php" method="POST" enctype="multipart/form-data" onsubmit="if (typeof entidad.ADD_submit_persona() === 'object') {return false} else {return true};">
 
 
-html ```
+```
 
 En este caso, como la función de validación de submit devuelve un true si todos los campños son correctos o un objeto con todos los errores de los campos del formulario si existen errores. El código en el evento submit comprueba si lo que llega es un objeto en cuyo caso devuelve un false o si devuelve un true en cuyo caso devuelve el true y permite que se ejecute el action.
 
