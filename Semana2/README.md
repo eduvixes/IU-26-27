@@ -2,7 +2,7 @@
 
 ## Semana 2 ##
 
-* Propósito
+### Propósito ###
 
 Se pretende hacer una página html que contenga todos los componentes visuales necesarios para hacer la gestión (altas, bajas, modificaciones, borrados y detalle) de una entidad de la base de datos.
 El menú se usa para acceder a cada entidad que se quiere manejar instanciando la clase de la entidad.
