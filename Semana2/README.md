@@ -12,7 +12,7 @@ La validación se hará a nivel de cada campo del formulario mediante un evento 
 Existirá tambien una validación a nivel de submit que comprobará que todos los campos son correctos para poder dejar ejecutar el action del formulario.
 El ejemplo no esta completo para que se pueda completar por los alumnos.
 
-* index.html 
+### index.html ###
 
 html con un conjunto de divs semánticos en el body que estructuran la página con:
 
@@ -66,7 +66,7 @@ Existe un evento onsubmit() asociado al formulario que se dispara cuando el usua
 
 En este caso, como la función de validación de submit devuelve un true si todos los campños son correctos o un objeto con todos los errores de los campos del formulario si existen errores. El código en el evento submit comprueba si lo que llega es un objeto en cuyo caso devuelve un false o si devuelve un true en cuyo caso devuelve el true y permite que se ejecute el action.
 
-* persona_Class.js
+### persona_Class.js ###
 
 Esta es la clase que se crea para definir la funcionalidad que tendrá la entidad persona. Por el momento, se establecerá la funcionalidad completa de la entidad en la clase que la contiene, pero según se vaya identificando funcionalidad común a todas las entidades estas se irán colocando en una clase superior de la cual puedan heredar todas las entidades simplificando el desarrollo y mantenimiento y dejando en cada entidad solo la funcionalidad que sea exclusiva y particular de dicha entidad.
 
@@ -152,7 +152,7 @@ Este el código correspondiente a la validación de submit, en el cual se realiz
 
 ```
 
-* Dom_Class.js
+### Dom_Class.js ###
 
 En esta clase se encuentran los métodos para la modificación dinámica del DOM con el objeto de separarlos del javascript de comportamiento y del html de estructuración de contenidos.
 
@@ -178,7 +178,7 @@ El método mostrar_error_campo recibe un id y un codigo de error. Cambia el bord
 
 ```
 
-* Validations_Class.js
+### Validations_Class.js ###
 
 En esta clase se definen las validaciones básicas sobre los valores de manera que puedan ser utilizadas en todos los campos del formulario si son necesarias. Todas ellas reciben un id de un elemento y un valor de comparación (si es necesario) y devuelven true si el valor de elemento cumple el valor de comparación y false si no lo cumple.
 
