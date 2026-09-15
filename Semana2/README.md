@@ -16,20 +16,29 @@ El ejemplo no esta completo para que se pueda completar por los alumnos.
 
 html con un conjunto de divs semánticos en el body que estructuran la página con:
 
-header para poner la cabecera de la página
-nav para mostrar/ocultar menu
-aside para las opciones del menu
-section para el formulario
-article por si es necesario
-footer para pie de pagina
-script js para ocultar los elementos necesarios cuando se cargan y declarar la función para ocultar y mostrar las opciones de menú.
+- header para poner la cabecera de la página
+
+- nav para mostrar/ocultar menu
+
+- aside para las opciones del menu
+
+- section para el formulario
+
+- article por si es necesario
+
+- footer para pie de pagina
+
+- script js para ocultar los elementos necesarios cuando se cargan y declarar la función para ocultar y mostrar las opciones de menú.
 
 En el header se carga:
 
-la clase js de la entidad persona
-el css que se usa para formatear la apariencia
-la clase para definir las operaciones sobre los objetos del dom
-la clase para definir las validaciones atomicas estandar disponibles para todos los campos de formulario.
+- la clase js de la entidad persona
+
+- el css que se usa para formatear la apariencia
+
+- la clase para definir las operaciones sobre los objetos del dom
+
+- la clase para definir las validaciones atomicas estandar disponibles para todos los campos de formulario.
 
 Algunos detalles en el index.html:
 
