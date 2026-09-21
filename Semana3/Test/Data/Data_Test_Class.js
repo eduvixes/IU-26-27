@@ -2,7 +2,8 @@ class Data_Test {
     
     /**
      * 
-     * @param {declaracion de la entidad} entidad 
+     * @param {declaracion de la entidad} entidad
+     * @return {void}
      */
     constructor(entidad){
 
@@ -15,27 +16,28 @@ class Data_Test {
 
         document.getElementById('titulo_nombre_entidad_test').innerHTML = this.entidad.nombreentidad;
         // se crea el formulario oculto
-        document.getElementById('form').innerHTML = this.entidad.manual_form_creation();
+        //document.getElementById('form').innerHTML = this.entidad.manual_form_creation();
 
 
         // se almacena la variable de definicion de test, pruebas no file y pruebas file
         this.array_def_tests = eval(this.entidad.nombreentidad+'_def_tests');
-        this.array_pruebas_nofile = eval(this.entidad.nombreentidad+'_pruebas');
-        //this.array_pruebas_file = eval(this.entidad.nombreentidad+'_tests_files');
+        this.array_pruebas = eval(this.entidad.nombreentidad+'_pruebas');
 
         // se invoca la realizacion de pruebas
         this.data_test_class();
 
-        
-        
-         // se invoca la muestra del resultado de las pruebas
-        //this.dom.showtestresult('IU_Test_result', test_result);
-
     }
 
-    data_test_data_nofile(){
+    /**
+     * @name data_test_data()
+     * carga las variables del fichero de test de la entidad y ejecuta las pruebas definidas y presenta el resultado por pantalla
+     * @param 
+     * @returns {bool}
+     */
 
-        var pruebas = this.array_pruebas_nofile;
+    data_test_data(){
+
+        var pruebas = this.array_pruebas;
        
         var salidapruebas = [];
 
@@ -58,31 +60,6 @@ class Data_Test {
         
         for (let i=0;i<pruebas.length;i++){
 
-            /*
-            def
-            [
-                0 'persona',
-                1 'nombre_persona',
-                2 8,
-                3 'input',
-                4 'es correcto',
-                5 'valid',
-                6 'EDIT',
-                7 true,
-                8 'Nombre persona correcto'
-            ]
-            -----------------------------
-            prueba
-            [
-                0 'persona',
-                1 'nombre_persona',
-                2 1,
-                3 1,
-                4 'ADD',
-                5 [{nombre_persona:'aa'}],
-                6 'nombre_persona_min_size_ko',
-            ]
-            */
             resultadopruebas.entidad = pruebas[i][0];
             resultadopruebas.campo = pruebas[i][1];
             resultadopruebas.NumDef = pruebas[i][2];
@@ -90,11 +67,28 @@ class Data_Test {
             resultadopruebas.descripcion = '';
             resultadopruebas.accion = pruebas[i][4];
 
-            Object.keys(pruebas[i][5]).forEach(clave => {
-                const valor = pruebas[i][5][clave];
-                resultadopruebas.valorprueba += clave+'='+valor+'<br>';
-            });
-            
+            //mostrar valores de prueba
+
+            const mostrarValores = (valores) => {
+                Object.keys(pruebas[i][5]).forEach(clave => {
+                    const valor = pruebas[i][5][clave];
+                    var salida = '';
+                    if (typeof(valor) == 'object'){
+                        Object.keys(valor).forEach(laclave => {
+                            const estevalor = valor[laclave];
+                            salida += laclave+'='+estevalor+'<br>';
+                        });
+                        resultadopruebas.valorprueba += clave+'={'+salida+'}<br>';
+                    }
+                    else{
+                        resultadopruebas.valorprueba += clave+'='+valor+'<br>';
+                    }
+                });
+            }
+
+            var valores = pruebas[i][5];
+            mostrarValores(valores);
+                       
 
             resultadopruebas.respuestaesperada = pruebas[i][6];
         
@@ -155,128 +149,11 @@ class Data_Test {
 
         return salidapruebas;
     }
-/*
-    data_test_data_file(){
 
-        var pruebas = this.array_pruebas_file;
-       
-        var salidapruebas = [];
-
-        var resultadopruebas = {
-            entidad: "",
-            campo: '',
-            NumDef: '',
-            NumPrueba: '',
-            descripcion: '',
-            accion: '',
-            valorprueba: '',
-            respuestaesperada: '',
-            resultadoprueba:'',
-            pruebastatus:''      
-        };
-
-        var contadorpruebas = 0;
-
-        // recorro todas las pruebas definidas
-        
-        for (let i=0;i<pruebas.length;i++){
-
-
-
-            resultadopruebas.entidad = pruebas[i][0];
-            resultadopruebas.campo = pruebas[i][1];
-            resultadopruebas.NumDef = pruebas[i][2];
-            resultadopruebas.NumPrueba = pruebas[i][3];
-            resultadopruebas.accion = pruebas[i][4];
-            //resultadopruebas.descripcion = pruebas[i][5];
-            
-            
-
-            for (var j=0;j<pruebas[i][6].length;j++){
-
-                for (var clave in pruebas[i][6][j]){
-                
-                    var nombrecampo = clave;
-                    var valorcampo = pruebas[i][6][j][nombrecampo];
-                    resultadopruebas.valorprueba += nombrecampo+':'+valorcampo+'<br>';
-
-                }
-
-            }
-
-            resultadopruebas.respuestaesperada = pruebas[i][7];
-        
-
-            // recupero el test correspondiente a la prueba que realizo
-            var def = this.devolver_def(resultadopruebas.NumDef);
-            resultadopruebas.descripcion = def[2];
-
-            // creo objeto html sino tengo cargado el formulario (para crear cada elemento dinamicamente dentro del form)
-             //construyo objeto file y relleno valor para prueba
-            if (pruebas[i][6].length != 0){
-                              
-                var nombrefichero = pruebas[i][6][0].format_name_file;
-                var tipomime = pruebas[i][6][1].type_file;
-                var maxsize = pruebas[i][6][2].max_size_file;   
-
-
-                var file = new File([new ArrayBuffer(maxsize)], nombrefichero ,{type:tipomime, webkitRelativePath:"C:\\fakepath\\"+nombrefichero});
-                
-                // Create a data transfer object. Similar to what you get from a `drop` event as `event.dataTransfer`
-                const dataTransfer = new DataTransfer();
-
-                // Add your file to the file list of the object
-                dataTransfer.items.add(file);
-
-                // Save the file list to a new variable
-                const fileList = dataTransfer.files;
-
-                // Set your input `files` to the file list
-                document.getElementById(resultadopruebas.campo).files = fileList;
-
-                
-            }
-           
-                    
-
-            //llamo a la funcion de validacion del campo según su accion
-            var resultadoprueba = eval('this.entidad.'+resultadopruebas.accion+'_'+resultadopruebas.campo+'_validation()');
-            resultadopruebas.resultadoprueba = resultadoprueba;
-           
-
-            // compruebo si el resultado del test y la respuesta esperada es la misma
-            if (resultadoprueba == resultadopruebas.respuestaesperada){
-                resultadopruebas.pruebastatus = 'CORRECTO';
-            }
-            else{
-                resultadopruebas.pruebastatus = 'INCORRECTO';
-            }
-
-            salidapruebas[contadorpruebas] = resultadopruebas;
-            contadorpruebas++;
-            resultadopruebas = 
-                {   
-                    entidad: '',
-                    campo: '',
-                    NumDef: '',
-                    NumPrueba: '',
-                    descripcion: '',
-                    accion: '',
-                    valorprueba: '',
-                    respuestaesperada: '',
-                    resultadoprueba:'',
-                    pruebastatus:''      
-                };
-
-        }
-
-        return salidapruebas;
-   
-    }
-*/
 
     /**
      *  se comprueban las pruebas definidas contra la clase para la que son definidas.
+     *  se ejecutan las pruebas y se envian al metodo showData para su muestra por pantalla
      * 
      *      @return un objeto con un objeto con clase asociativa para cada prueba
      */
@@ -284,22 +161,24 @@ class Data_Test {
     data_test_class(){
 
 
-        var salidapruebasnofile = this.data_test_data_nofile();
+        var salidapruebas = this.data_test_data();
          // se invoca la muestra del resultado de las pruebas
         let marcados =	{
 					pruebastatus: {value:'INCORRECTO', style:'background-color: red'}
         };
         
-        this.dom.showData('IU_Test_result_nofile', salidapruebasnofile, marcados);
+        this.dom.showData('IU_Test_result_nofile', salidapruebas, marcados);
        
-        //var salidapruebasfile = this.data_test_data_file();
-       
-        // se invoca la muestra del resultado de las pruebas
-        //this.dom.showData('IU_Test_result_file', salidapruebasfile, marcados);
-
         return true;
 
     }
+
+    /**
+     * devuelve la definición de test correspondiente al numero proporcionado
+     * 
+     * @param {number} num_def numero de definición de test
+     * @returns {object} el array de definición de test correspondiente al numero de test puesto como parametro
+     */
 
     devolver_def(num_def){
 

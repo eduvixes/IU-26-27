@@ -14,12 +14,12 @@ class persona extends Validations{
 	}	
 
 	/**
-	 * replace the content of section element with a particular entity menu
-	 * @returns 
+	 * creates a variable with a form for a particular entity menu
+	 * @returns a variable with the form definition
 	 */
 	manual_form_creation(){
 		var form_content = `
-			<form action="http://193.147.87.202/procesaform.php" method="POST" enctype="multipart/form-data" onsubmit="return entidad.ADD_submit_persona();">
+			<form action="http://193.147.87.202/procesaform.php" method="POST" enctype="multipart/form-data" onsubmit="if (typeof entidad.ADD_submit_persona() === 'object') {return false} else {return true};">
 
 			<label class="label_dni">dni</label>
 			<input type='text' id='dni' name='dni' onblur=" return entidad.ADD_dni_validation();"></input>
@@ -80,11 +80,8 @@ class persona extends Validations{
 
 	/** 
 		
-		@param 
-		@return
-			{string} Error code of field value (fieldname_validationfunction_ko) 
-			or
-			{bool} true due the field value is correct
+		@return	{string} Error code of field value (fieldname_validationfunction_ko) or
+		@return {bool} true due the field value is correct
 
 	*/
 	ADD_dni_validation(){
@@ -98,11 +95,9 @@ class persona extends Validations{
 			return "dni_max_size_ko";
 		}
 				
-		var resp = this.personalize_dni_nie();
-		console.log(resp);
-		if (!(resp === true)){
-			this.dom.mostrar_error_campo('dni',resp);
-			return resp;
+		if (!(this.format('dni', '^[0-9]{8}[A-Z]'))){
+			this.dom.mostrar_error_campo('dni','dni_format_ko');
+			return "dni_format_ko";
 		}
 		
 		this.dom.mostrar_exito_campo('dni');
@@ -164,24 +159,39 @@ class persona extends Validations{
 	}
 
 	/**
-		
-		@param 
-		@return
-			{bool} true if all field validations are correct or false if any field validation is false
-
+	 
+		@param
+		@return	{bool} true if all fields validations are ok or 
+		@return {object} object with the ids of elements and error code if field validation is not ok and true if field validation is ok
 	*/
 	ADD_submit_persona(){
 
+		// object to store de fields validations
+		var set_result = {};
+
+		// store in key (id element) value (result of field validation method)
+		set_result.dni = this.ADD_dni_validation();
+		set_result.nombre_persona = this.ADD_nombre_persona_validation();
+		set_result.nuevo_foto_persona = this.ADD_nuevo_foto_persona_validation();
+
+		// calculate combination of all field validations
 		let result = (
-					(this.ADD_dni_validation()) &
-					(this.ADD_nombre_persona_validation())
-					(this.ADD_nuevo_foto_persona_validation())
+					(set_result.dni) &
+					(set_result.nombre_persona) &
+					(set_result.nuevo_foto_persona)
 					)
 		
+		// convert the result to boolean
 		result = Boolean(result);
-		
-		return result;	
 
+		// if boolean and true return true
+		if ((typeof result === 'boolean') && (result == true)){
+			return result;
+		}// if not boolean or false return the object with id element as key and code error as value
+		else{
+			return set_result;
+		}
+		
 
 	}
 
@@ -215,91 +225,7 @@ class persona extends Validations{
 
 	}
 
-	/**
-	 * 
-	 * test dni format in the regular expression
-	 * @param {string} 
-	 * @return {bool} true is regular expression is satified false otherwise  
-	 * */ 
 
-	personalize_dni_nie(){
-		
-		dni = document.getElementById('dni').value;
-		if (this.personalize_dni_format() == true){
-			if (!(this.personalize_validate_dni(dni))){
-				return "dni_validate_ko";
-			}
-		}
-		else{
-			if (this.personalize_nie_format() === true){
-					if (!(this.personalize_validate_nie(dni))){
-						return "nie_validate_ko";
-					}
-			}
-			else{
-				return "dni_nie_format_ko";
-			}
-		}
-
-		return true;
-
-	}
-	/**
-	 * get dni as parameter, split letter and numbers, calculate
-	 * %23 from number to obtain corresponding letter and compares with letter in dni value
-	 * 
-	 * @param dni value
-	 * @returns true if dni is valid false otherwise
-	 */
-	personalize_dni_format(){
-		
-		if (!(this.format('dni', '[0-9]{8}[A-Z]'))){
-			this.dom.mostrar_error_campo('dni','dni_format_ko');
-			return "dni_format_ko";
-		}
-		return true;
-
-	}
-
-	personalize_nie_format(){
-		if (!(this.format('dni', '[XYZ][0-9]{7}[A-Z]'))){
-			this.dom.mostrar_error_campo('dni','nie_format_ko');
-			return "nie_format_ko";
-		}
-		return true;
-	}
-	personalize_validate_dni(dni){
-		
-		//var dni = document.getElementById('dni').value;
-		var dni_letters = "TRWAGMYFPDXBNJZSQVHLCKE";
-    	var letter = dni_letters.charAt( parseInt( dni, 10 ) % 23 );
-		
-    	return letter == dni.charAt(8);
-	}
-
-	/**
-	 * get nie as parameter, split firts letter, calculate
-	 * the number from this letter and create dni for validating in 
-	 * personalizate method
-	 * 
-	 * @param nie value
-	 * @returns true if nie is valid false otherwise
-	 */
-	personalize_validate_nie(nie){
-		
-		//var nie = document.getElementById('dni').value;
-		// Change the initial letter for the corresponding number and validate as DNI
-		var nie_prefix = nie.charAt( 0 );
-
-		switch (nie_prefix) {
-		case 'X': nie_prefix = 0; break;
-		case 'Y': nie_prefix = 1; break;
-		case 'Z': nie_prefix = 2; break;
-		}
-
-		return this.personalize_validate_dni( nie_prefix + nie.substr(1) );
-	
-	}
 
 
 

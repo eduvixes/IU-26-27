@@ -23,8 +23,8 @@ let persona_pruebas = Array(
     ['persona','nombre_persona',7,7,'EDIT',{nombre_persona:'aaaaaa1'},'nombre_persona_format_ko'],
     ['persona','nombre_persona',8,8,'EDIT',{nombre_persona:'javi'},true],
     Array('persona','nuevo_foto_persona',9,9,'ADD',{},'nuevo_foto_persona_not_exist_file_ko'),
-    ['persona','nuevo_foto_persona',10,10,'ADD',{format_name_file:'nombrejpg00.jpg',type_file:'image/jpeg',max_size_file:200},'nuevo_foto_persona_format_name_file_ko'],
-    ['persona','nuevo_foto_persona',11,11,'ADD',{format_name_file:'nombrejpg.jpg',type_file:'image/jpeg',max_size_file:2000000000},'nuevo_foto_persona_max_size_file_ko'],
+    ['persona','nuevo_foto_persona',10,10,'ADD',{nuevo_foto_persona:{format_name_file:'nombrejpg00.jpg',type_file:'image/jpeg',max_size_file:200}},'nuevo_foto_persona_format_name_file_ko'],
+    ['persona','nuevo_foto_persona',11,11,'ADD',{nuevo_foto_persona:{format_name_file:'nombrejpg.jpg',type_file:'image/jpeg',max_size_file:2000000000}},'nuevo_foto_persona_max_size_file_ko'],
     
     
 
