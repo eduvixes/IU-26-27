@@ -38,7 +38,7 @@
 			<br>
 			
 			<label class="label_apellidos_persona">apellidos</label>
-			<input type='text' id='apellidos_persona' name='apellidos_persona'></input>
+			<input type='text' id='apellidos_persona' name='apellidos_persona' onblur=" return entidad.ADD_apellidos_persona_validation();"></input>
 			<span id="span_error_apellidos_persona" ><a id="error_apellidos_persona"></a></span>
 			<br>
 			
@@ -88,13 +88,11 @@
 		document.getElementById('span_error_name').style.display = 'none';
 		*/
 		function menu_work(){
-			if (document.getElementById('div-menu').style.display == 'none'){
-				document.getElementById('div-menu').style.display = 'block';
-			}
-			else{
-				document.getElementById('div-menu').style.display = 'none';
-			}
+			(toggle_display)(document.getElementById('div-menu').style);
 		}
+        function toggle_display(style) {
+            style.display = style.display === 'none' ? '' : 'none';
+        }
 	</script>
 
 </body>
