@@ -172,7 +172,7 @@ class persona extends Validations {
 			return "nuevo_foto_persona_image_type_KO";
 		}
 		const maxSizeInBytes = 2 * 1024 * 1024;
-		if (!this.max_size("nuevo_foto_persona",maxSizeInBytes)) {
+		if (!this.max_size_file("nuevo_foto_persona",maxSizeInBytes)) {
 			this.dom.mostrar_error_campo(
 				"nuevo_foto_persona",
 				"foto_persona_size_KO",

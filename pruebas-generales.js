@@ -1,3 +1,5 @@
+//todos los elementos de las pruebas estarán guardados aquí y duplicadas junto a las clases
+
 let persona_def_tests = Array(
     //campos no ficheros
     Array('persona', 'nombre_persona', 'input', 1, 'cumple tamaño minimo', 'min_size', 'ADD', 'nombre_persona_min_size_ko', 'Tamaño muy corto. Debe estar entre 4 y 20 caracteres'),
@@ -25,10 +27,5 @@ let persona_pruebas = Array(
     Array('persona', 'nuevo_foto_persona', 9, 9, 'ADD', {}, 'nuevo_foto_persona_not_exist_file_ko'),
     ['persona', 'nuevo_foto_persona', 10, 10, 'ADD', { nuevo_foto_persona: { format_name_file: 'nombrejpg00.jpg', type_file: 'image/jpeg', max_size_file: 200 } }, 'nuevo_foto_persona_format_name_file_ko'],
     ['persona', 'nuevo_foto_persona', 11, 11, 'ADD', { nuevo_foto_persona: { format_name_file: 'nombrejpg.jpg', type_file: 'image/jpeg', max_size_file: 2000000000 } }, 'nuevo_foto_persona_max_size_file_ko'],
-
-
-
-
-
 );
 
