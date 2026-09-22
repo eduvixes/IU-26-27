@@ -40,6 +40,15 @@ class dom extends dom_table {
 	}
 
 	/**
+		coloca el contenido html en un contenedor visible inline 
+		@param {string} contenido html
+		@param {string} id del contenedor donde colocar el contenido
+	*/
+	fillHtmlContent(contenido, idcontenedor){
+		document.getElementById(idcontenedor).innerHTML = contenido;
+		document.getElementById(idcontenedor).style.display = 'inline';
+	}
+	/**
 		coloca el contenido html en el div 
 		@param {string} contenido html
 		@param {string} id del div donde colocar el contenido
@@ -63,32 +72,35 @@ class dom extends dom_table {
 		switch (tag){
 			case 'input':
 				//si tiene mas de un valor, creo y relleno todos los campos con sus valores y devuelvo el primero
-				let counter = 0;
+				//let counter = 0;
 				for (var clave in valores){
 					
 					var nombrecampo = clave;
 					var valorcampo = valores[nombrecampo];
 					var element = this.createInput(nombrecampo, tipo);
 					this.fillElementValue(element, valorcampo);
-					if (counter == 0){
+					this.colocarelemento(element, 'form');
+					/*if (counter == 0){
 						var elementToReturn = element;
 					}
-					counter++;
+					counter++;*/
 
 				}
 				
-				return elementToReturn;
+				//return elementToReturn;
 				break;
 			case 'file':
 				element = this.createInput(nombrecampo, tipo);
 				this.fillElementFile(element, valores);
-				return element;
+				//return element;
+				this.colocarelemento(element, 'form');
 				break;
 			default: // este lo uso para crear los span y los a de los errores sin valor
 				element = document.createElement(tag);
 				element.type = tipo;
 				element.id = nombrecampo;
 				this.fillElementValue(element, '');
+				this.colocarelemento(element, 'form');
 				return element;
 				break;	
 		}

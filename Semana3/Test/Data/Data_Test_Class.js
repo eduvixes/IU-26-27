@@ -14,7 +14,7 @@ class Data_Test {
         this.entidad = new entidad('test');
         this.dom = new dom;
 
-        document.getElementById('titulo_nombre_entidad_test').innerHTML = this.entidad.nombreentidad;
+        this.dom.fillHtmlContent(this.entidad.nombreentidad, 'titulo_nombre_entidad_test');
         // se crea el formulario oculto
         //document.getElementById('form').innerHTML = this.entidad.manual_form_creation();
 
@@ -104,13 +104,11 @@ class Data_Test {
             if (def[2] == 'file'){
                 var elementoform = this.dom.crearElementoHtml(def[2], 'file', def[1], pruebas[i][5]);
             }
-                   
-            this.dom.colocarelemento(elementoform, 'form');
             
             // se colocan los elementos de muestra de error por si falla la validacion y la entidad intenta mostrarlos
-            this.dom.colocarelemento(this.dom.crearElementoHtml('span', '', 'span_error_'+def[1], {}), 'form');
-            this.dom.colocarelemento(this.dom.crearElementoHtml('a', '', 'error_'+def[1], {}), 'form');
-            this.dom.colocarelemento(this.dom.crearElementoHtml('input', 'submit', 'submit_button', {submit_button:0}), 'form');
+            this.dom.crearElementoHtml('span', '', 'span_error_'+def[1], {});
+            this.dom.crearElementoHtml('a', '', 'error_'+def[1], {});
+            this.dom.crearElementoHtml('input', 'submit', 'submit_button', {submit_button:0});
 
             
             //llamo a la funcion de validacion del campo según su accion
