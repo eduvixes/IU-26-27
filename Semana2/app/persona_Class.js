@@ -62,7 +62,7 @@ class persona extends Validations {
       return "nombre_persona_max_size_KO";
     }
     // allowed format aA to zZ letter
-    if (!this.format("nombre_persona", "[ñ.\-\ a-zA-Z]*")) {
+    if (!this.format("nombre_persona", "[ñ.\\-\ a-zA-Zá-úÁ-Ú]*")) {
       this.dom.mostrar_error_campo(
         "nombre_persona",
         "nombre_persona_format_KO",
@@ -74,34 +74,139 @@ class persona extends Validations {
   }
 
   ADD_apellidos_persona_validation() {
-    if (!this.min_size("appellidos_persona", 3)) {
+    if (!this.min_size("apellidos_persona", 3)) {
       this.dom.mostrar_error_campo(
-        "appellidos_persona",
-        "appellidos_persona_min_size_KO",
+        "apellidos_persona",
+        "apellidos_persona_min_size_KO",
       );
-      return "appellidos_persona_min_size_KO";
+      return "apellidos_persona_min_size_KO";
     }
-    if (!this.max_size("appellidos_persona", 35)) {
+    if (!this.max_size("apellidos_persona", 35)) {
       this.dom.mostrar_error_campo(
-        "appellidos_persona",
-        "appellidos_persona_max_size_KO",
+        "apellidos_persona",
+        "apellidos_persona_max_size_KO",
       );
-      return "appellidos_persona_max_size_KO";
+      return "apellidos_persona_max_size_KO";
     }
     // allowed format aA to zZ letter
-    if (!this.format("appellidos_persona", "[ñ.\-\ a-zA-Z]*")) {
+    if (!this.format("apellidos_persona", "[ñ.\\-\ a-zA-Zá-úÁ-Ú]*")) {
       this.dom.mostrar_error_campo(
-        "appellidos_persona",
-        "appellidos_persona_format_KO",
+        "apellidos_persona",
+        "apellidos_persona_format_KO",
       );
-      return "appellidos_persona_format_KO";
+      return "apellidos_persona_format_KO";
     }
-    this.dom.mostrar_exito_campo("appellidos_persona");
+    this.dom.mostrar_exito_campo("apellidos_persona");
     return true;
   }
-
+  ADD_fechaNacimiento_persona_validation() {
+    if (!this.format("fechaNacimiento_persona", "\\n{1,2}\/\n{1,2}\/\n{2,4}")) {
+      this.dom.mostrar_error_campo(
+        "fechaNacimiento_persona",
+        "fechaNacimiento_persona_format_KO",
+      );
+      return "fechaNacimiento_persona_format_KO";
+    }
+    this.dom.mostrar_exito_campo("fechaNacimiento_persona");
+    return true;
+  }
+  ADD_direccion_persona_validation() {
+    if (!this.min_size("direccion_persona", 10)) {
+      this.dom.mostrar_error_campo(
+        "direccion_persona",
+        "direccion_persona_min_size_KO",
+      );
+      return "direccion_persona_min_size_KO";
+    }
+    if (!this.max_size("direccion_persona", 200)) {
+      this.dom.mostrar_error_campo(
+        "direccion_persona",
+        "direccion_persona_max_size_KO",
+      );
+      return "direccion_persona_max_size_KO";
+    }
+    // allowed format aA to zZ letter
+    if (!this.format("direccion_persona", "[ñ.\\-\ \/a-zA-Zá-úÁ-Ú]*")) {
+      this.dom.mostrar_error_campo(
+        "direccion_persona",
+        "direccion_persona_format_KO",
+      );
+      return "direccion_persona_format_KO";
+    }
+    this.dom.mostrar_exito_campo("direccion_persona");
+    return true;
+  }
+  ADD_telefono_persona_validation() {
+    if (!this.format("telefono_persona", "(\\+34)?\d{9,9}")) {
+      this.dom.mostrar_error_campo(
+        "telefono_persona",
+        "telefono_persona_format_KO",
+      );
+      return "telefono_persona_format_KO";
+    }
+    this.dom.mostrar_exito_campo("telefono_persona");
+    return true;
+  }
+  ADD_email_persona_validation() {
+    if (!this.format("email_persona", "[^@]+@[^@]+\\.[^@]+")) {
+      this.dom.mostrar_error_campo("email_persona", "email_persona_format_KO");
+      return "email_persona_format_KO";
+    }
+    this.dom.mostrar_exito_campo("email_persona");
+    return true;
+  }
+  ADD_nueva_foto_persona_validation() {
+    const file = document.getElementById("nueva_foto_persona").files[0];
+    if (!file) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "foto_persona_empty_KO",
+      );
+      return "nueva_foto_persona_empty_KO";
+    }
+    const validTypes = ["image/jpeg", "image/jpg"];
+    if (!validTypes.includes(file.type)) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "nueva_foto_persona_image_type_KO",
+      );
+      return "nueva_foto_persona_image_type_KO";
+    }
+    const maxSizeInBytes = 2 * 1024 * 1024;
+    if (file.size > maxSizeInBytes) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "foto_persona_size_KO",
+      );
+      return "nueva_foto_persona_size_KO";
+    }
+    const fileName = file.name;
+    regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ.]$/;
+    if (!regex.test(fileName)) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "nueva_foto_persona_name_format_KO",
+      );
+      return "nueva_foto_persona_name_format_KO";
+    }
+    if (fileName.length < 3) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "nueva_foto_persona_name_min_size_KO",
+      );
+      return "nueva_foto_persona_name_min_size_KO";
+    }
+    if (fileName.length > 15) {
+      this.dom.mostrar_error_campo(
+        "nueva_foto_persona",
+        "nueva_foto_persona_name_max_size_KO",
+      );
+      return "nueva_foto_persona_name_max_size_KO";
+    }
+    this.dom.mostrar_exito_campo("nueva_foto_persona");
+    return true;
+  }
   /**
-	 
 		@param
 		@return	{bool/object} true if all fields validations are ok or object with the ids of elements and error code if field validation is not ok and true if field validation is ok
 	
@@ -114,11 +219,24 @@ class persona extends Validations {
     // store in key (id element) value (result of field validation method)
     set_result.dni = this.ADD_dni_validation();
     set_result.nombre_persona = this.ADD_nombre_persona_validation();
-    set_result.apellidos_persona = this.apellidos_persona_validation();
+    set_result.apellidos_persona = this.ADD_apellidos_persona_validation();
+    set_result.fechaNacimiento_persona =
+      this.ADD_fechaNacimiento_persona_validation();
+    set_result.direccion_persona = this.ADD_direccion_persona_validation();
+    set_result.telefono_persona = this.ADD_telefono_persona_validation();
+    set_result.email_persona = this.ADD_email_persona_validation();
+    set_result.nueva_foto_persona = this.ADD_foto_persona_validation();
 
     // calculate combination of all field validations
     let result =
-      set_result.dni & set_result.nombre_persona & set_result.apellidos_persona;
+      set_result.dni &
+      set_result.nombre_persona &
+      set_result.apellidos_persona &
+      set_result.fechaNacimiento_personal &
+      set_result.direccion_persona &
+      set_result.telefono_persona &
+      set_result.email_persona &
+      set_result.nueva_foto_persona;
 
     // convert the result to boolean
     result = Boolean(result);
