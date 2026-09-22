@@ -159,57 +159,57 @@ class persona extends Validations {
 		if (!this.exist_file("nuevo_foto_persona")) {
 			this.dom.mostrar_error_campo(
 				"nuevo_foto_persona",
-				"foto_persona_empty_KO",
+				"nuevo_foto_persona_empty_file_ko",
 			);
-			return "nuevo_foto_persona_empty_KO";
+			return "nuevo_foto_persona_empty_file_ko";
 		}
 		const validTypes = ["image/jpeg", "image/jpg"];
 		if (!this.type_file("nuevo_foto_persona", validTypes)) {
 			this.dom.mostrar_error_campo(
 				"nuevo_foto_persona",
-				"nuevo_foto_persona_image_type_KO",
+				"nuevo_foto_persona_type_file_ko",
 			);
-			return "nuevo_foto_persona_image_type_KO";
+			return "nuevo_foto_persona_type_file_ko";
 		}
 		const maxSizeInBytes = 2 * 1024 * 1024;
 		if (!this.max_size_file("nuevo_foto_persona",maxSizeInBytes)) {
 			this.dom.mostrar_error_campo(
 				"nuevo_foto_persona",
-				"foto_persona_size_KO",
+				"nuevo_foto_persona_max_size_file_ko",
 			);
-			return "nuevo_foto_persona_size_KO";
+			return "nuevo_foto_persona_max_size_file_ko";
 		}
 		if (!this.format_name_file("nuevo_foto_persona","nuevo_foto_persona")){
 			this.dom.mostrar_error_campo(
+		    "nuevo_foto_persona",
+		    "nuevo_foto_persona_format_name_file_ko",
+		  );
+		  return "nuevo_foto_persona_format_name_file_ko";
+		}
+		/*const fileName = file.name;
+		regex = /^y$/;
+		if (!regex.test(fileName)) {
+		  this.dom.mostrar_error_campo(
 		    "nuevo_foto_persona",
 		    "nuevo_foto_persona_name_format_KO",
 		  );
 		  return "nuevo_foto_persona_name_format_KO";
 		}
-		// const fileName = file.name;
-		// regex = /^y$/;
-		// if (!regex.test(fileName)) {
-		//   this.dom.mostrar_error_campo(
-		//     "nuevo_foto_persona",
-		//     "nuevo_foto_persona_name_format_KO",
-		//   );
-		//   return "nuevo_foto_persona_name_format_KO";
-		// }
-		// if (fileName.length < 3) {
-		//   this.dom.mostrar_error_campo(
-		//     "nuevo_foto_persona",
-		//     "nuevo_foto_persona_name_min_size_KO",
-		//   );
-		//   return "nuevo_foto_persona_name_min_size_KO";
-		// }
-		// if (fileName.length > 15) {
-		//   this.dom.mostrar_error_campo(
-		//     "nuevo_foto_persona",
-		//     "nuevo_foto_persona_name_max_size_KO",
-		//   );
-		//   return "nuevo_foto_persona_name_max_size_KO";
-		// }
-		// this.dom.mostrar_exito_campo("nuevo_foto_persona");
+		if (fileName.length < 3) {
+		  this.dom.mostrar_error_campo(
+		    "nuevo_foto_persona",
+		    "nuevo_foto_persona_name_min_size_KO",
+		  );
+		  return "nuevo_foto_persona_name_min_size_KO";
+		}
+		if (fileName.length > 15) {
+		  this.dom.mostrar_error_campo(
+		    "nuevo_foto_persona",
+		    "nuevo_foto_persona_name_max_size_KO",
+		  );
+		  return "nuevo_foto_persona_name_max_size_KO";
+		}*/
+		this.dom.mostrar_exito_campo("nuevo_foto_persona");
 		return true;
 	}
 	ADD_foto_persona_validation() {
@@ -238,6 +238,36 @@ class persona extends Validations {
 		this.dom.mostrar_exito_campo("foto_persona");
 		return true;
 	}
+	//#REGION EDITs
+	EDIT_nombre_persona_validation(){
+
+		return this.ADD_nombre_persona_validation();
+
+	}
+	EDIT_nuevo_foto_persona_validation(){
+
+		if (!(this.not_exist_file('nuevo_foto_persona'))){
+			this.dom.mostrar_exito_campo('nuevo_foto_persona');
+			return true;
+		}
+		if (!(this.max_size_file('nuevo_foto_persona',2000))){
+			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_max_size_file_ko');
+			return "nuevo_foto_persona_max_size_file_ko";
+		}
+		if (!(this.type_file('nuevo_foto_persona',['image/jpeg']))){
+			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_type_file_ko');
+			return "nuevo_foto_persona_type_file_ko";
+		}
+		if (!(this.format_name_file('nuevo_foto_persona','[a-zA-Z.]'))){
+			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_name_file_ko');
+			return "nuevo_foto_persona_format_name_file_ko";
+		}
+		this.dom.mostrar_exito_campo('nuevo_foto_persona');
+		return true;
+
+
+	}
+	//#Reion Submits
 	/**
 		  @param
 		  @return	{bool/object} true if all fields validations are ok or object with the ids of elements and error code if field validation is not ok and true if field validation is ok
