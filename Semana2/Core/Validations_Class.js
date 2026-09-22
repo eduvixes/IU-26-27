@@ -29,6 +29,13 @@ class Validations{
 						}
 						break;
 					case 'file':
+						    const file = elemento.files[0];
+							if (file.size > minsize){
+								return true;
+							}
+							else{
+								return false;
+							}
 						break;
 					default:
 						break;
@@ -70,6 +77,13 @@ class Validations{
 						}
 						break;
 					case 'file':
+						const file = elemento.files[0];
+							if (file.size < maxsize){
+								return true;
+							}
+							else{
+								return false;
+							}
 						break;
 					default:
 						break;
