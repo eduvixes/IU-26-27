@@ -103,8 +103,8 @@ class dom extends dom_table {
 		//mientras no tenemos multiidioma, el mensaje de error es el codigo de error, en el futuro se traducira
 		//document.getElementById('error_action_msg').innerHTML = errorMsg;
 		//cuando ya tengamos el multiidioma, se pondra la clase del mensaje de error para que se traduzca
-        document.getElementById('error_action_msg').classList.add = errorMsg;
-        setLang();
+        document.getElementById('error_action_msg').ClassName = errorMsg;
+        if (typeof setLang === 'function') setLang();
     }
 
 		
