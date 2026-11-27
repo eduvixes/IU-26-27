@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <title>API - Inspector</title>
+</head>
+<body>
+  <p>Editar usuario</p>
+
+    <h1>
+        Modifica los datos del usuario.
+    </h1>
+    <div class="create-blog content">
+        <form id="form">
+            <lable for="nameUser">Nombre:</lable>
+            <input type="text" id="nameUser" name="nameUser" maxlength="50" minlength="2" required>
+            <lable for="emailUser">Correo electrónico:</lable>
+            <input type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" id="emailUser" name="emailUser" maxlength="50" required>
+        </form>
+        <div id="button-container">
+      
+        </div>
+    </div>
+
+  <script src="modify.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html lang="es-ES">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Crear usuario</title>
+    </head>
+    <body>
+        <h1>
+            Crea un nuevo usuario para la aplicación.
+        </h1>
+        <div class="create-blog content">
+            <form id="form">
+                <!-- action="/moviesCreate" method="POST"  -->
+                <lable for="nameUser">Nombre:</lable>
+                <input type="text" id="nameUser" name="nameUser" maxlength="50" minlength="2" required>
+                <lable for="emailUser">Correo electrónico:</lable>
+                <input type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" id="emailUser" name="emailUser" maxlength="50" required>
+            </form>
+            <!--<button onclick="location.href='table_pag.html?page=1'" type="button">Cancel</button>-->
+        </div>
+        <div id="button-container">
+      
+        </div>
+
+        <script src="create.js"></script>
+</body>
+</html>

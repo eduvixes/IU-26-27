@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Breakpoints</title>
+</head>
+<body>
+    <h1>Ejemplo de depuración de breakpoints</h1>
+    <button id="btnCalcular">Calcular suma</button>
+    <p id="resultado"></p>
+    <script>
+        // Función principal
+        function calcular(){
+            console.log("Inicio de la función calcular()");
+            let a = 5;
+            let b = 10;
+
+            //breakpoint
+            let total = sumar(a, b);
+
+            mostrarResultado(total);
+            console.log("Fin de la función calcular()");
+        }
+
+        function sumar(x, y) {
+            console.log("Ejecutando sumar()");
+            let resultado = x + y;
+            return resultado;
+        }
+
+        function mostrarResultado(valor){
+            console.log("El valor es: " + valor);
+            console.log("Mostrando resultado en el DOM");
+            document.getElementById("resultado").innerText = "El resultado es: " + valor;
+        }
+
+        // Asignamos evento al botón
+        document.getElementById("btnCalcular").addEventListener("click", calcular);
+    </script>
+</body>
+</html>
